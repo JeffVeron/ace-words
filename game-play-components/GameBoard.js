@@ -1,10 +1,12 @@
-import { View, Text ,StyleSheet , Pressable ,Dimensions,ImageBackground } from 'react-native'
+import { View, Text ,StyleSheet , Pressable ,useWindowDimensions,ImageBackground } from 'react-native'
 import React , {useEffect , useState  } from 'react'
 import useWordStore from '../store';
+import{easyWordList} from '../easyWordList'
 import usePressedLetterStore from '../usePressedletterStore';
 //const { uuid } = require('uuidv4');
-
-
+import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const gameBoardImage = require('../assets/game-images/board4.png');
 const answerBoardImage =  require('../assets/game-images/board2-removebg-preview.png');
@@ -16,8 +18,6 @@ function getRandomWordFromArray(wordArray) {
   return wordArray[randomIndex];
 }
 
-
-
 // Function to shuffle an array using Fisher-Yates algorithm
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -27,35 +27,61 @@ const shuffleArray = array => {
   return array;
 };
 
-const GameBoard = () => {
- 
-  const [selectedWord, setSelectedWord] = useState('');
+
+
+const GameBoard = (/* {words} */) => {
+  const navigation = useNavigation();
+  const { values, addToValues, removeLastValue,slicedState,modifiedState } = usePressedLetterStore();
   const [shuffledLetters, setShuffledLetters] = useState([]);
-  const pressedLetters = usePressedLetterStore();  //state => state.values
-  const words = useWordStore(state => state.words);
+  const [selectedWord, setSelectedWord] = useState([]);
+  const pressedLetters = usePressedLetterStore();  
+  const /* {words , easyWordStore}  */  easyWordStore = useWordStore(state => state.easyWordStore);
+  const [modState , setModState] = useState([])
+  const [buttonPressCount, setButtonPressCount] = useState(0);
+ 
 
-  // Select a random word from useWordStore and set it to selectedWord
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    setSelectedWord(words[randomIndex]);
-    
-    //console.log(selectedWord)
-     // Shuffle the letters of the selected word
-     const lettersArray = words[randomIndex].split('');
-     const shuffledArray = shuffleArray(lettersArray);
-     setShuffledLetters(shuffledArray);
+  const handleRemoveLastValue = () => {
+   // addLastRemovedValueBack ();
+    setButtonPressCount(prevCount => prevCount + 1);
    
-
-     console.log('Selected word:', words[randomIndex]);
-  }, [words]);
-
-  const handleLetterPress = letter => {
-    // Update the usePressedLetterStore when a letter is pressed
-   pressedLetters.addToValues(letter);
-    console.log(letter);
   };
 
+   
+
+    console.log('easy words : ' + easyWordList[9].word )
+  // Select a random word from useWordStore and set it to selectedWord
+  useEffect(() => {
+
+    /* const randomIndex = Math.floor(Math.random() * words.length);
+    setSelectedWord(words[randomIndex]);  */
     
+    
+     // Shuffle the letters of the selected word
+    /*  const lettersArray = words[randomIndex].split(''); */
+    const lettersArray = easyWordList[400].word.split('')
+     const shuffledArray = shuffleArray(lettersArray);
+     setShuffledLetters(shuffledArray);
+      
+ 
+    // console.log('Selected word:', words[randomIndex]);
+    console.log('Selected word:', easyWordList[400]);
+     
+  }, [easyWordStore]);
+
+  
+  const handleLetterPress = index => {
+    // Update the usePressedLetterStore when a letter is pressed
+    //pressedLetters.addToValues(letter);
+
+    const letter = shuffledLetters[index];
+    pressedLetters.addToValues(letter);
+
+    // Remove the clicked letter from shuffledLetters
+    const updatedShuffledLetters = shuffledLetters.filter((_, i) => i !== index);
+    setShuffledLetters(updatedShuffledLetters);
+  };
+
+ 
   return (
     <View 
      style={{ 
@@ -67,8 +93,10 @@ const GameBoard = () => {
         <ImageBackground
      source ={gameBoardImage}
      style = {{
-      height : 300 ,
-      width: 400,
+      height : 'auto' ,
+      minHeight:300,
+      width: 'auto',
+      minWidth:'80%',
       flex: 1,
       flexDirection: 'row',
       flexWrap: 'wrap',
@@ -78,7 +106,7 @@ const GameBoard = () => {
 >
       {shuffledLetters.map((letter, index) => (
         <Pressable
-          onPress={() => handleLetterPress(letter)}
+          onPress={ () => handleLetterPress(index)}
           style={{ padding: 10 }}
           key={index}
         >
@@ -110,6 +138,23 @@ const GameBoard = () => {
           </ImageBackground>
         </Pressable>
       ))}
+
+     {/*  <Pressable onPress={() => {handleRemoveLastValue()}}>
+          <Feather
+            name="delete"
+            size={34}
+            color="red"
+            style={{
+              alignSelf: "center",
+              justifySelf: "center",
+              backgroundColor: "yellow",
+              height: 40,
+              width: 40,
+              borderRadius: "50%",
+              fontWeight: "bold",
+            }}
+          />
+        </Pressable> */}
 
       </ImageBackground>
     </View>
@@ -165,9 +210,10 @@ const styles = StyleSheet.create({
     justifySelf: 'center',
     alignItems:'center',
     marginTop: '10%',
-    textShadowColor: 'black',
+    textShadow:'4 4 5 black ',
+   /*  textShadowColor: 'black',
     textShadowOffset: {width : 4 , height : 4 },
-    textShadowRadius : 5  
+    textShadowRadius : 5   */
   },
   letterImage : {
     width: 200,

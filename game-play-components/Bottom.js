@@ -1,20 +1,20 @@
 import { View, 
   Text ,
   StyleSheet ,
-  Dimensions , 
+  useWindowDimensions , 
    Pressable , 
    Image,
    ImageBackground } from 'react-native'
-import React from 'react'
+   import React , {useState} from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const windowWidth = Dimensions.get("window").width;
-const Bottom = ( ) => {
 
+const Bottom = ( ) => {
+  const windowWidth = useWindowDimensions().width;
   const navigation = useNavigation();
 
   return (
