@@ -2,7 +2,7 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
+  useWindowDimensions,
   ImageBackground,
 } from "react-native";
 import React from "react";
@@ -13,16 +13,27 @@ import LevelTittle from "../game-play-components/LevelTittle";
 import AnswerBoard from "../game-play-components/AnswerBoard";
 import ScoreBoard from "../game-play-components/ScoreBoard";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 const gameBoardImage = require("../assets/game-images/board4.png");
 const answerBoardImage = require("../assets/game-images/board2-removebg-preview.png");
 const letterBoardImage = require("../assets/game-images/letter-board.png");
 const scoreBoardImage =  require("../assets/game-images/board2-removebg-preview.png")
 
 const EasyLevel1 = () => {
+  
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   return (
-    <View style={styles.container}>
+    <View style={{
+      borderWidth: 1,
+      borderColor: "red",
+      backgroundColor: "brown",
+      left: 0,
+      flex: 1,
+      width: windowWidth,
+      height: 650 /* windowHeight */,
+      alignSelf: "center",
+      justifySelf: "center",
+    }}>
       <HeaderNavigation Level="Easy 1" />
  
 {/* 
@@ -91,17 +102,7 @@ style = {{
 export default EasyLevel1;
 
 const styles = StyleSheet.create({
-  container: {
-    baorderWidth: 1,
-    borderColor: "red",
-    backgroundColor: "brown",
-    left: 0,
-    flex: 1,
-    width: windowWidth,
-    height: 650 /* windowHeight */,
-    alignSelf: "center",
-    justifySelf: "center",
-  },
+   
   levelTitle: {
     display: "flex",
     flexDirection: "row",

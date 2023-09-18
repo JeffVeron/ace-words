@@ -1,15 +1,15 @@
-import { View, Text, StyleSheet ,Dimensions } from 'react-native'
+import { View, Text, StyleSheet ,useWindowDimensions } from 'react-native'
 import React from 'react'
 import useWordStore from '../store';
-
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 
 
 const EasyLevel2 = () => {
   const words = useWordStore((state) => state.words);
  
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+
+
 
 
 // Define a function to determine the difficulty of a word
@@ -61,7 +61,17 @@ console.log(charactersArray[2]);
 //console.log(words);
 
   return (
-    <View style= { styles.container}>
+    <View style= {{
+      borderWidth: 1,
+      borderColor: "red",
+      backgroundColor: "brown",
+      left: 0,
+      flex: 1,
+      width: windowWidth,
+      height: 650 /* windowHeight */,
+      alignSelf: "center",
+      justifySelf: "center",
+    }}>
       <Text>one word from the list</Text>
       <Text style= {{ color : 'white'}}>{words}</Text>
       <Text>show</Text>
@@ -71,15 +81,5 @@ console.log(charactersArray[2]);
 
 export default EasyLevel2
 const styles = StyleSheet.create({
-  container : {
-    baorderWidth: 1,
-    borderColor: "red",
-    backgroundColor: "brown",
-    left: 0,
-    flex: 1,
-    width: windowWidth,
-    height: 650 /* windowHeight */,
-    alignSelf: "center",
-    justifySelf: "center",
-  }
+ 
 })
