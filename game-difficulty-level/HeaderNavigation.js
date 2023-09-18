@@ -2,17 +2,19 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
+  useWindowDimensions,
   ImageBackground,
 } from "react-native";
 import React from "react";
+ 
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const headerImage = require("../assets/game-images/bar.jpg");
-const { height, width } = Dimensions.get("window");
+
 
 const HeaderNavigation = (props) => {
+  const { height, width } = useWindowDimensions();
   const navigation = useNavigation();
 
   return (
