@@ -1,8 +1,8 @@
-import { View, Text ,Dimensions , StyleSheet } from 'react-native'
+import { View, Text ,useWindowDimensions , StyleSheet } from 'react-native'
 import React from 'react'
 import HeaderNavigation from '../game-difficulty-level/HeaderNavigation'
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
 
 
 export default function ExpertScreen ({navigation}){
@@ -16,7 +16,7 @@ export default function ExpertScreen ({navigation}){
 
 const styles = StyleSheet.create({
   container :{
-    baorderWidth: 1,
+      borderWidth: 1,
     borderColor : 'red',
     backgroundColor: 'brown',
     left: 0,

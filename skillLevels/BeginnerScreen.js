@@ -1,16 +1,26 @@
-import { View, Text, StyleSheet , Dimensions } from 'react-native'
+import { View, Text, StyleSheet , useWindowDimensions } from 'react-native'
 import React from 'react'
 import HeaderNavigation from '../game-difficulty-level/HeaderNavigation'
 import EasyLevelsContainer from '../game-levels/EasyLevelsContainer';
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+  
 
 
 
 
 export default function BeginnerScreen({navigation})  {
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   return (
-    <View  style = { styles.container}>
+    <View  style = {{
+      borderWidth: 1,
+      borderColor : 'red',
+      backgroundColor: 'brown',
+      left: 0,
+      flex: 1,
+      width: windowWidth,
+      height: windowHeight,
+      alignSelf: "center",
+      justifySelf: "center",}}>
       <HeaderNavigation Level="Beginner" />
       <EasyLevelsContainer/>
     </View>
@@ -18,15 +28,5 @@ export default function BeginnerScreen({navigation})  {
 }
 
 const styles = StyleSheet.create({
-  container :{
-    baorderWidth: 1,
-    borderColor : 'red',
-    backgroundColor: 'brown',
-    left: 0,
-    flex: 1,
-    width: windowWidth,
-    height: windowHeight,
-    alignSelf: "center",
-    justifySelf: "center",
-  }
+   
 })
