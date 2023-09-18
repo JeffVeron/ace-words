@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+   
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -32,5 +33,6 @@
         "projectId": "fcf98cc8-144b-46a9-b5da-d780c3e7e868"
       }
     }
+   
   }
 }

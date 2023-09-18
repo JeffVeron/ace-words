@@ -5,7 +5,7 @@ import { StyleSheet,
   View, 
   Image, 
   ImageBackground ,
-  Dimensions ,
+  useWindowDimensions ,
   Pressable
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -27,7 +27,7 @@ export default function Home({navigation}) {
   const background = require('./assets/game-images/black-back.jpg')
 
 
-  const { height, width } = Dimensions.get('window');
+  const { height, width } = useWindowDimensions();
 
   return (
     <ImageBackground
@@ -213,7 +213,7 @@ export default function Home({navigation}) {
           </Pressable>
 
   <Pressable
-          onPress={() => navigation.navigate('Variety')}
+          onPress={() => navigation.navigate('Help')}
           > 
           <View
             style={styles.footerItem}
@@ -226,7 +226,7 @@ export default function Home({navigation}) {
 </Pressable>
 
   <Pressable
-          onPress={() => navigation.navigate('Variety')}
+          onPress={() => navigation.navigate('Daily')}
           > 
           <View
             style={styles.footerItem}
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 'auto',
     color: 'yellow',
-    marginTop: '35%',
+    marginTop: "35%",
     fontSize: 25,
     fontWeight: "bold"
   },

@@ -1,5 +1,5 @@
 // scoreStore.js
-import create from 'zustand';
+import {create} from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For persistence
 
 const useScoreStore = create((set) => ({

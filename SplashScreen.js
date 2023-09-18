@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Image, useWindowDimensions } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -8,19 +8,27 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Audio } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
-
+//import * as Sentry from "@sentry/react-native";
+//import { ErrorBoundary} from "@sentry/react-native";
 
  
+/* Sentry.init({
+  dsn: 'https://cfd702a865ab822c572a62690cd1cf79@o4505890008596480.ingest.sentry.io/4505890013380608',
+  enableInExpoDevelopment: true,
+  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+});
+ */
 const imageSource = require('./assets/appName.png');
-const soundSource = require('./assets/game-sounds/mixkit-quick-win-video-game-notification-269.wav');
+//const soundSource = require('./assets/game-sounds/mixkit-quick-win-video-game-notification-269.wav');
 
 const SplashScreen = () => {
+  const { height, width } = useWindowDimensions()
   const scale = useSharedValue(1);
   const navigation = useNavigation();
 
   useEffect(() => {
     // Play the sound during the splash screen animation
-    playSound();
+    //playSound();  //not ready yet
 
     scale.value = withTiming(2, { duration: 2000 }, () => {
       runOnJS(navigateToHomeScreen)();
@@ -42,21 +50,22 @@ const SplashScreen = () => {
 
   const imageStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
+      transform: `scale(${scale.value})`,
     };
   });
-
+/* try { */
   return (
+    
+      
     <View style={{ flex: 1 }}>
       <Animated.View style={imageStyle}>
         <View
           style={{
-            //position: 'absolute',
+           
             flex: 4,
             paddingTop: 200,
-            width: 'auto',
-            height: 'auto',
-            backgroundColor: 'black',
+            width: width,
+            height: height,
             alignContent: 'center',
             justifyContent: 'center',
             alignSelf: 'center'
@@ -75,7 +84,12 @@ const SplashScreen = () => {
         </View>
       </Animated.View>
     </View>
+ 
+ 
   );
+/* } catch (error) {
+  Sentry.Native.captureException(error);
+} */
 };
 
 export default SplashScreen;

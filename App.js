@@ -1,15 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { useWindowuseWindowDimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SplashScreen from "./SplashScreen";
-import Home from "./Home"; // Replace this with your actual HomeScreen component
+import Home from "./Home";
 import Easy from "./game-difficulty-level/Easy";
 import Normal from "./game-difficulty-level/Normal";
 import Hard from "./game-difficulty-level/Hard";
 import Extreme from "./game-difficulty-level/Extreme";
 import Variety from "./game-difficulty-level/Variety";
-//import { Daily, Help, Settings, Shop } from './game-options';
+
 import Daily from "./game-options/Daily";
 import Help from "./game-options/Help";
 import Settings from "./game-options/Settings";
@@ -24,45 +25,62 @@ import VeteranScreen from "./skillLevels/VeteranScreen";
 import ExpertScreen from "./skillLevels/VeteranScreen";
 import MasterScreen from "./skillLevels/MasterScreen";
 import DetailScreen from "./DetailScreen";
-import EasyLevel1 from './game-levels/EasyLevel1'
-import EasyLevel2 from './game-levels/EasyLevel2'
-import EasyLevel3 from './game-levels/EasyLevel3'
-import EasyLevel4 from './game-levels/EasyLevel4'
-import EasyLevel5 from './game-levels/EasyLevel5'
-import EasyLevel6 from './game-levels/EasyLevel6'
-import EasyLevel7 from './game-levels/EasyLevel7'
-import EasyLevel8 from './game-levels/EasyLevel8'
-import EasyLevel9 from './game-levels/EasyLevel10'
-import EasyLevel10 from './game-levels/EasyLevel10'
-import EasyLevel11 from './game-levels/EasyLevel11'
-import EasyLevel12 from './game-levels/EasyLevel12'
-import EasyLevel13 from './game-levels/EasyLevel13'
-import EasyLevel14 from './game-levels/EasyLevel14'
-import EasyLevel15 from './game-levels/EasyLevel15'
-import EasyLevel16 from './game-levels/EasyLevel16'
-import EasyLevel17 from './game-levels/EasyLevel17'
-import EasyLevel18 from './game-levels/EasyLevel18'
-import EasyLevel19 from './game-levels/EasyLevel19'
-import EasyLevel20 from './game-levels/EasyLevel20'
-import EasyLevel21 from './game-levels/EasyLevel21'
-import EasyLevel22 from './game-levels/EasyLevel22'
-import EasyLevel23 from './game-levels/EasyLevel23'
-import EasyLevel24 from './game-levels/EasyLevel24'
-import EasyLevel25 from './game-levels/EasyLevel25'
+import EasyLevel1 from "./game-levels/EasyLevel1";
+import EasyLevel2 from "./game-levels/EasyLevel2";
+import EasyLevel3 from "./game-levels/EasyLevel3";
+import EasyLevel4 from "./game-levels/EasyLevel4";
+import EasyLevel5 from "./game-levels/EasyLevel5";
+import EasyLevel6 from "./game-levels/EasyLevel6";
+import EasyLevel7 from "./game-levels/EasyLevel7";
+import EasyLevel8 from "./game-levels/EasyLevel8";
+import EasyLevel9 from "./game-levels/EasyLevel10";
+import EasyLevel10 from "./game-levels/EasyLevel10";
+import EasyLevel11 from "./game-levels/EasyLevel11";
+import EasyLevel12 from "./game-levels/EasyLevel12";
+import EasyLevel13 from "./game-levels/EasyLevel13";
+import EasyLevel14 from "./game-levels/EasyLevel14";
+import EasyLevel15 from "./game-levels/EasyLevel15";
+import EasyLevel16 from "./game-levels/EasyLevel16";
+import EasyLevel17 from "./game-levels/EasyLevel17";
+import EasyLevel18 from "./game-levels/EasyLevel18";
+import EasyLevel19 from "./game-levels/EasyLevel19";
+import EasyLevel20 from "./game-levels/EasyLevel20";
+import EasyLevel21 from "./game-levels/EasyLevel21";
+import EasyLevel22 from "./game-levels/EasyLevel22";
+import EasyLevel23 from "./game-levels/EasyLevel23";
+import EasyLevel24 from "./game-levels/EasyLevel24";
+import EasyLevel25 from "./game-levels/EasyLevel25";
+import ModalScreen from "./ModalScreen";
+
+//import * as Sentry from 'sentry-expo';
+//import { ErrorBoundary } from '@sentry/react-native';
+//import * as Sentry from "@sentry/react";
+
+
+// SENTRY TOKEN =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
+/* Sentry.init({
+  dsn: 'https://cfd702a865ab822c572a62690cd1cf79@o4505890008596480.ingest.sentry.io/4505890013380608',
+  enableInExpoDevelopment: true,
+  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+}); */
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const { height, width } = Dimensions.get("window");
+  const { height, width } = useWindowDimensions();
 
   const BackIcon = () => {
     return <FontAwesome name="arrow-circle-left" size={24} color="white" />;
   };
+
+ /*  try{ */
   return (
-    <View
+    
+     
+      <View
       style={{
         flex: 1,
-        backgroundColor: "black",
+        //backgroundColor: "black",
         alignItems: "center",
         alignSelf: "center",
         justifySelf: "center",
@@ -104,9 +122,10 @@ const App = () => {
             component={Daily}
             options={{ headerShown: true }}
           />
+          
           <Stack.Screen
             name="Help"
-            component={Help}
+             component = {Help}
             options={{ headerShown: true }}
           />
 
@@ -122,8 +141,7 @@ const App = () => {
             options={{ headerShown: true }}
           />
 
-
-{/* the navigation to the skillLevel components */}
+          {/* the navigation to the skillLevel components */}
 
           <Stack.Screen name="BEGINNER" component={BeginnerScreen} />
           <Stack.Screen name="MEDIUM" component={MediumScreen} />
@@ -134,15 +152,19 @@ const App = () => {
           <Stack.Screen name="EXPERT" component={ExpertScreen} />
           <Stack.Screen name="MASTER" component={MasterScreen} />
 
-
-          <Stack.Screen name="DetailScreen" component={DetailScreen}/>
+          <Stack.Screen name="DetailScreen" component={DetailScreen} />
 
           {/* create the levels of each difficulty */}
           <Stack.Screen name="Easy_Level_1" component={EasyLevel1} />
+          <Stack.Screen
+            name="Modal"
+            component={ModalScreen}
+            options={{ presentation: "transparentModal" }}
+          />
           <Stack.Screen name="Easy_Level_2" component={EasyLevel2} />
           {/* <Stack.Screen name="Easy_Level_2" component={EasyLevel2} />
           <Stack.Screen name="Easy_Level_2" component={EasyLevel2} /> */}
-          
+
           <Stack.Screen name="Easy_Level_3" component={EasyLevel3} />
           <Stack.Screen name="Easy_Level_4" component={EasyLevel4} />
           <Stack.Screen name="Easy_Level_5" component={EasyLevel5} />
@@ -166,13 +188,18 @@ const App = () => {
           <Stack.Screen name="Easy_Level_23" component={EasyLevel23} />
           <Stack.Screen name="Easy_Level_24" component={EasyLevel24} />
           <Stack.Screen name="Easy_Level_25" component={EasyLevel25} />
-
-
-
         </Stack.Navigator>
       </NavigationContainer>
     </View>
+      
+
+   
+
   );
+/* } catch (error) {
+  Sentry.Native.captureException(error);
+} */
 };
 
+ 
 export default App;
